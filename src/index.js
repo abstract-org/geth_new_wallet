@@ -58,6 +58,6 @@ app.post('/new_wallet', (req, res) => {
   });
 });
 
-app.listen(process.env.LISTEN_PORT, () => {
+app.listen(process.env.LISTEN_PORT, '0.0.0.0', () => {
   console.log(`Server listening on port ${process.env.LISTEN_PORT ?? '3000'}`);
 });
