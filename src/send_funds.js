@@ -36,6 +36,7 @@ async function sendSignedTransaction() {
         const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
 
         console.log('Transaction successful:', receipt);
+        process.stdout.write('Transaction successful');
     } catch (error) {
         console.log('Transaction error:', error);
     }
