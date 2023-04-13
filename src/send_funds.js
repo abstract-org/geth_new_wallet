@@ -11,26 +11,34 @@ var privateKey = process.env.PRIVATE_KEY;
 
 // Make sure the private key has the '0x' prefix
 if (!privateKey.startsWith('0x')) {
-  privateKey = '0x' + privateKey;
+    privateKey = '0x' + privateKey;
 }
 
 // Create an account object using the private key
 var account = web3.eth.accounts.privateKeyToAccount(privateKey);
 
-// Sign and send the transaction
-web3.eth.sendTransaction({
-  from: from,
-  to: to,
-  value: web3.utils.toWei(amount, 'ether'),
-  gas: 21000, // You can adjust the gas limit depending on the transaction
-})
-.signTransaction(account.privateKey)
-.then(function (signedTx) {
-  return web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-})
-.then(function (receipt) {
-  console.log('Transaction successful:', receipt);
-})
-.catch(function (error) {
-  console.log('Transaction error:', error);
-});
+async function sendSignedTransaction() {
+    try {
+        const nonce = await web3.eth.getTransactionCount(from);
+        const gasPrice = await web3.eth.getGasPrice();
+        const value = web3.utils.toWei(amount, 'ether');
+
+        const rawTransaction = {
+            from: from,
+            to: to,
+            value: value,
+            gas: 21000, // You can adjust the gas limit depending on the transaction
+            nonce: nonce,
+            gasPrice: gasPrice,
+        };
+
+        const signedTx = await account.signTransaction(rawTransaction);
+        const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+
+        console.log('Transaction successful:', receipt);
+    } catch (error) {
+        console.log('Transaction error:', error);
+    }
+}
+
+sendSignedTransaction();

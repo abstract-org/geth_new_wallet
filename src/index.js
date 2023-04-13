@@ -7,7 +7,7 @@ const { exec } = require('child_process');
 const app = express();
 app.use(bodyParser.json());
 
-const amount = process.env.DEFAULT_AMOUNT || 100000000
+const amount = process.env.DEFAULT_AMOUNT || '100000000'
 
 const db = new sqlite3.Database('wallets.db', (err) => {
   if (err) {
