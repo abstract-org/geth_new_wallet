@@ -22,6 +22,10 @@ db.run('CREATE TABLE IF NOT EXISTS wallets (address TEXT UNIQUE)', (err) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.status(200).send('Hello');
+})
+
 app.post('/new_wallet', (req, res) => {
   const account = req.body.account;
 
