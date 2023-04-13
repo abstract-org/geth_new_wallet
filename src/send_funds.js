@@ -1,9 +1,7 @@
 // send_funds.js
-var dotenv = require('dotenv');
+require('dotenv').config();
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.IpcProvider('/home/ec2-user/geth_data/geth.ipc', require('net')));
-
-dotenv.config();
 
 var from = process.env.BANK_ADDRESS;
 var to = process.argv[2];
