@@ -7,6 +7,8 @@ const { exec } = require('child_process');
 const app = express();
 app.use(bodyParser.json());
 
+const amount = process.env.DEFAULT_AMOUNT || 100000000
+
 const db = new sqlite3.Database('wallets.db', (err) => {
   if (err) {
     console.error(err.message);
@@ -42,7 +44,7 @@ app.post('/new_wallet', (req, res) => {
           res.status(500).send('Internal server error');
         } else {
           // Execute the script to send and authorize funds to the new wallet
-          exec('yarn node src/send_funds.js ' + account, (error, stdout, stderr) => {
+          exec('yarn node src/send_funds.js ' + account + ' ' + amount, (error, stdout, stderr) => {
             if (error) {
               console.error(`exec error: ${error}`);
               res.status(500).send('Internal server error');
