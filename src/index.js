@@ -27,6 +27,7 @@ app.post('/new_wallet', (req, res) => {
     const noAddrErr = `Must specify receiver address`
     console.error(noAddrErr)
     res.status(500).send(noAddrErr);
+    return;
   }
 
   db.get('SELECT address FROM wallets WHERE address = ?', [account], (err, row) => {
@@ -41,7 +42,7 @@ app.post('/new_wallet', (req, res) => {
           res.status(500).send('Internal server error');
         } else {
           // Execute the script to send and authorize funds to the new wallet
-          exec('node src/send_funds.js ' + account, (error, stdout, stderr) => {
+          exec('yarn node src/send_funds.js ' + account, (error, stdout, stderr) => {
             if (error) {
               console.error(`exec error: ${error}`);
               res.status(500).send('Internal server error');
