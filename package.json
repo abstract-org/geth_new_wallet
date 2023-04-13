@@ -1,0 +1,15 @@
+{
+  "name": "geth_new_wallet",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6",
+    "web3": "^1.9.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
