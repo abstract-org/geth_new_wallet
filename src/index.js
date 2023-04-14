@@ -1,11 +1,13 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
 const { exec } = require('child_process');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 const amount = process.env.DEFAULT_AMOUNT || '100000000'
 
