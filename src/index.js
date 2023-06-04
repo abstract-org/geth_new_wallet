@@ -30,6 +30,7 @@ app.get('/', (req, res) => {
 
 app.post('/new_wallet', (req, res) => {
   const account = req.body.account;
+  const amount = req.body.amount || process.env.DEFAULT_AMOUNT;
 
   if (!account) {
     const noAddrErr = `Must specify receiver address`
