@@ -9,8 +9,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const amount = process.env.DEFAULT_AMOUNT || '10'
-
 const db = new sqlite3.Database('wallets.db', (err) => {
   if (err) {
     console.error(err.message);
